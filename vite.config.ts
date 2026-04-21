@@ -3,7 +3,6 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import vueDevTools from 'vite-plugin-vue-devtools';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,7 +10,6 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    vueDevTools(),
     VitePWA({
       registerType: 'autoUpdate', // 配置 service worker 的注册方式
       includeAssets: ['favicon.svg', 'robots.txt'], // 指定需要包含的静态资源

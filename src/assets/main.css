@@ -1,35 +1,109 @@
 @import './base.css';
 
+:root {
+  --primary: #0052d9; /* 稳重的企业蓝 */
+  --primary-light: #e3f2fd;
+  --bg-dark: #fcfcfc; /* 极浅灰/纸张色 */
+  --bg-card: #ffffff;
+  --text-main: #1d2129; /* 深文字 */
+  --text-muted: #86909c;
+  --accent: #2d5af1;
+  --glass-border: #e5e6eb; /* 浅淡分割线 */
+  --glass-shadow: none;
+}
+
 #app {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
   font-weight: normal;
+  color: var(--text-main);
+  background-color: var(--bg-dark);
+  min-height: 100vh;
 }
 
-a,
-.green {
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+header {
+  line-height: 1.5;
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 2px solid var(--primary); /* 顶部的蓝色强调线 */
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links a {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+  color: var(--text-main);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  font-size: 16px;
+  letter-spacing: normal;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.nav-links a:hover, .nav-links a.router-link-active {
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+/* 文档风格卡片 */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 0; /* 文档风格更倾向于直角 */
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 24px;
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+/* 悬停时仅加深边框或显示侧边条 */
+.card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.gradient-text {
+  background: none;
+  color: var(--text-main);
+  -webkit-text-fill-color: initial;
+  font-weight: 800;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+/* 标题下方的蓝色横杠装饰 (参考图中样式) */
+.gradient-text::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 4px;
+  background: var(--primary);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
 }
