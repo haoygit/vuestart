@@ -9,7 +9,8 @@
     "dev": "vite",
     "preview": "vite preview",
     "type-check": "vue-tsc --build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commit": "cz"
   },
   "dependencies": {
     "pinia": "^3.0.1",
@@ -21,6 +22,8 @@
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
     "@eslint/js": "^10.0.1",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
     "@tsconfig/node22": "^22.0.0",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.13.4",
@@ -54,5 +57,10 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
