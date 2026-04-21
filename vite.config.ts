@@ -1,19 +1,20 @@
-import { fileURLToPath, URL } from 'node:url'
-import {VitePWA} from 'vite-plugin-pwa';
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-import vueDevTools from 'vite-plugin-vue-devtools'
+import { fileURLToPath, URL } from 'node:url';
+import { VitePWA } from 'vite-plugin-pwa';
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import vueDevTools from 'vite-plugin-vue-devtools';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/vuestart/',
   plugins: [
     vue(),
     vueJsx(),
     vueDevTools(),
     VitePWA({
-      registerType: 'autoUpdate',  // 配置 service worker 的注册方式
-      includeAssets: ['favicon.svg', 'robots.txt'],  // 指定需要包含的静态资源
+      registerType: 'autoUpdate', // 配置 service worker 的注册方式
+      includeAssets: ['favicon.svg', 'robots.txt'], // 指定需要包含的静态资源
       manifest: {
         name: 'My PWA App',
         short_name: 'My App',
@@ -21,7 +22,7 @@ export default defineConfig({
         theme_color: '#ffffff',
         icons: [
           {
-            src: 'ball192.png',//像素尺寸一定要对应
+            src: 'ball192.png', //像素尺寸一定要对应
             sizes: '192x192',
             type: 'image/png',
           },
@@ -54,7 +55,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-})
+});
