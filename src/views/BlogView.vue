@@ -35,7 +35,7 @@ const posts = [
     </header>
 
     <div class="blog-list">
-      <div v-for="post in posts" :key="post.id" class="post-row">
+      <div v-for="post in posts" :key="post.id" class="card post-row">
         <div class="post-left">
           <div class="post-ref">{{ post.ref }}</div>
           <div class="post-date">{{ post.date }}</div>
@@ -77,12 +77,11 @@ const posts = [
   display: grid;
   grid-template-columns: 150px 1fr;
   gap: 48px;
-  padding: 40px 0;
-  border-bottom: 1px solid var(--glass-border);
+  margin-bottom: 24px;
 }
 
-.post-row:first-child {
-  border-top: 1px solid var(--glass-border);
+.post-row:last-child {
+  margin-bottom: 0;
 }
 
 .post-ref {

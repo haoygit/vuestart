@@ -1,41 +1,38 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
-import { onMounted, ref } from 'vue';
-import BackgroundEffects from './components/BackgroundEffects.vue';
-
-const scrollProgress = ref(0);
-
-const updateScroll = () => {
-  const h = document.documentElement;
-  const b = document.body;
-  const st = 'scrollTop';
-  const sh = 'scrollHeight';
-  scrollProgress.value = ((h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight)) * 100;
-};
-
-onMounted(() => {
-  window.addEventListener('scroll', updateScroll);
-});
 </script>
 
 <template>
   <div class="app-wrapper">
-    <div class="progress-bar" :style="{ width: scrollProgress + '%' }"></div>
-    <BackgroundEffects />
-
     <header>
-      <div class="logo-container">
-        <RouterLink to="/" class="site-logo">
-          <span class="gradient-text">技术存档</span>
-        </RouterLink>
-      </div>
-
       <nav class="nav-links">
-        <RouterLink to="/">概览</RouterLink>
-        <RouterLink to="/projects">案例库</RouterLink>
-        <RouterLink to="/blog">技术笔记</RouterLink>
-        <RouterLink to="/about">档案</RouterLink>
+        <RouterLink to="/html5">HTML5</RouterLink>
+        <RouterLink to="/css3">CSS3</RouterLink>
+        <RouterLink to="/javascript">JavaScript</RouterLink>
+        <RouterLink to="/typescript">TypeScript</RouterLink>
+        <RouterLink to="/vue">Vue</RouterLink>
+        <RouterLink to="/react">React</RouterLink>
       </nav>
+
+      <div class="header-right">
+        <RouterLink to="/about" class="hot-articles">热门文章</RouterLink>
+        <button class="search-btn">
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+        <RouterLink to="/projects" class="tools-btn">技术工具</RouterLink>
+      </div>
     </header>
 
     <main class="fade-in">
@@ -45,12 +42,6 @@ onMounted(() => {
         </transition>
       </RouterView>
     </main>
-
-    <footer>
-      <p class="footer-text">
-        DOCUMENT_CONTROL // REF: {{ new Date().getFullYear() }} // CONFIDENTIAL
-      </p>
-    </footer>
   </div>
 </template>
 
@@ -59,42 +50,59 @@ onMounted(() => {
   position: relative;
 }
 
-.progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: var(--primary);
-  z-index: 9999;
-  transition: width 0.1s ease;
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
-.logo-container {
-  font-size: 20px;
-  font-weight: 800;
-}
-
-.site-logo {
+.hot-articles {
+  font-weight: 600;
+  color: var(--text-main);
+  font-size: 16px;
+  cursor: pointer;
   text-decoration: none;
+  transition: color 0.2s;
+}
+
+.hot-articles:hover {
+  color: var(--primary);
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.search-btn:hover {
+  color: var(--primary);
+}
+
+.tools-btn {
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 24px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(22, 93, 255, 0.2);
+  transition: all 0.2s;
+}
+
+.tools-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(22, 93, 255, 0.3);
 }
 
 main {
-  padding: 48px 32px;
-  min-height: calc(100vh - 160px);
-}
-
-footer {
-  text-align: center;
-  padding: 64px 32px;
-  border-top: 1px solid var(--glass-border);
-  background: #fff;
-}
-
-.footer-text {
-  color: var(--text-muted);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 1px;
+  padding: 0;
+  min-height: calc(100vh - 100px);
 }
 
 /* Page Transitions */

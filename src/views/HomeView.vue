@@ -1,132 +1,99 @@
 <script setup lang="ts">
-const skills = [
-  { name: 'Vue 3 Ecosystem', info: '// Reactive state management' },
-  { name: 'TypeScript', info: '// Static type checking' },
-  { name: 'Vite', info: '// Next generation tooling' },
-  { name: 'Node.js', info: '// Backend orchestration' },
-  { name: 'Architecture', info: '// Systems design' },
+const articles = [
+  {
+    id: 1,
+    image:
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400&auto=format&fit=crop',
+    title: '创新结合当前的科技公司园区地理结构技术公司',
+    desc: 'Documentation is deeply integrated into the modern workspace infrastructure, providing a stable backbone for...',
+    tag: '前端前沿',
+    author: '架构师',
+    time: '2天前',
+  },
+  {
+    id: 2,
+    image:
+      'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=400&auto=format&fit=crop',
+    title: '按硬件设备划分公司层发现的技术型文章将...',
+    desc: 'It essentially enables building robust virtual platforms and helps developers keep track of operations efficiently...',
+    tag: '系统架构',
+    author: '前端大牛',
+    time: '3天前',
+  },
 ];
 </script>
 
 <template>
-  <div class="home-container">
-    <section class="hero fade-in">
-      <div class="doc-tag">// ID: FRONTEND_ARCHITECT</div>
-      <h1 class="hero-title">
-        <span class="gradient-text">技术文档说明</span>
-      </h1>
-      <p class="hero-subtitle">
-        专注于构建高性能、可扩展的 Web 系统架构。 本份档案记录了在前端工程化、混合开发及 PWA
-        领域的实践成果。
-      </p>
-      <div class="cta-group">
-        <RouterLink to="/projects" class="btn btn-primary">进入案例库</RouterLink>
-        <RouterLink to="/about" class="btn btn-outline">查阅档案</RouterLink>
-      </div>
-    </section>
-
-    <section class="skills-section">
-      <h2 class="section-title"><span class="gradient-text">核心能力项</span></h2>
-      <div class="skills-list">
-        <div v-for="skill in skills" :key="skill.name" class="skill-item">
-          <div class="skill-name">{{ skill.name }}</div>
-          <div class="skill-info">{{ skill.info }}</div>
+  <div class="home-container fade-in">
+    <div class="articles-col">
+      <div v-for="article in articles" :key="article.id" class="article-card card">
+        <div class="article-image">
+          <img :src="article.image" alt="Article cover" />
+        </div>
+        <div class="article-content">
+          <h2 class="article-title">{{ article.title }}</h2>
+          <p class="article-desc">{{ article.desc }}</p>
+          <div class="article-meta">
+            <span class="meta-tag">{{ article.tag }}</span>
+            <span class="meta-item"
+              ><svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              {{ article.author }}</span
+            >
+            <span class="meta-item"
+              ><svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              {{ article.time }}</span
+            >
+            <span class="meta-action">详情 &gt;</span>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .home-container {
   display: flex;
-  flex-direction: column;
-  gap: 80px;
+  align-items: flex-start;
+  min-height: 80vh;
+  margin-bottom: 20px;
 }
 
-.doc-tag {
-  color: var(--primary);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  margin-bottom: 16px;
-  font-weight: 700;
-}
-
-.hero {
-  max-width: 800px;
-}
-
-.hero-title {
-  font-size: 56px;
-  line-height: 1.2;
-  margin-bottom: 32px;
-}
-
-.hero-subtitle {
-  font-size: 20px;
-  color: var(--text-muted);
-  line-height: 1.8;
-  margin-bottom: 48px;
-  border-left: 4px solid var(--primary-light);
-  padding-left: 24px;
-}
-
-.cta-group {
+.articles-col {
+  flex: 1;
+  max-width: 650px;
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  gap: 32px;
 }
 
-.btn {
-  padding: 12px 32px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.btn-primary {
-  background: var(--primary);
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #0045bb;
-}
-
-.btn-outline {
-  border: 1px solid var(--primary);
-  color: var(--primary);
-}
-
-.btn-outline:hover {
-  background: var(--primary-light);
-}
-
-.section-title {
-  font-size: 32px;
-  margin-bottom: 40px;
-}
-
-.skills-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-}
-
-.skill-item {
-  padding: 24px;
-  border: 1px solid var(--glass-border);
-  background: #fff;
-}
-
-.skill-name {
-  font-weight: 800;
-  font-size: 18px;
-  margin-bottom: 8px;
-}
-
-.skill-info {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--text-muted);
+@media (max-width: 1024px) {
+  .articles-col {
+    max-width: 100%;
+  }
 }
 </style>
