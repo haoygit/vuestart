@@ -15,7 +15,7 @@ import { RouterLink, RouterView } from 'vue-router';
       </nav>
 
       <div class="header-right">
-        <RouterLink to="/about" class="hot-articles">热门文章</RouterLink>
+        <RouterLink to="/about" class="hot-articles">关于我</RouterLink>
         <button class="search-btn">
           <svg
             viewBox="0 0 24 24"

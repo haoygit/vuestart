@@ -28,45 +28,20 @@ const articles = [
     <div class="articles-col">
       <div v-for="article in articles" :key="article.id" class="article-card card">
         <div class="article-image">
-          <img :src="article.image" alt="Article cover" />
+          <img
+            :src="article.image"
+            alt="Article cover"
+            @error="
+              $event.target.src =
+                'https://placehold.co/400x152/1e293b/94a3b8?text=Image+Load+Failed'
+            "
+          />
         </div>
         <div class="article-content">
           <h2 class="article-title">{{ article.title }}</h2>
           <p class="article-desc">{{ article.desc }}</p>
           <div class="article-meta">
             <span class="meta-tag">{{ article.tag }}</span>
-            <span class="meta-item"
-              ><svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              {{ article.author }}</span
-            >
-            <span class="meta-item"
-              ><svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-              {{ article.time }}</span
-            >
             <span class="meta-action">详情 &gt;</span>
           </div>
         </div>

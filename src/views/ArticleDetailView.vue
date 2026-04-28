@@ -35,46 +35,20 @@ const goBack = () => {
       </button>
 
       <div v-if="article" class="card article-detail">
-        <img :src="article.image" alt="Cover" class="detail-cover" />
+        <img
+          :src="article.image"
+          alt="Cover"
+          class="detail-cover"
+          @error="
+            $event.target.src = 'https://placehold.co/800x400/1e293b/94a3b8?text=Image+Load+Failed'
+          "
+        />
 
         <div class="detail-header">
           <div class="meta-tag">{{ article.tag }}</div>
           <h1 class="detail-title">{{ article.title }}</h1>
 
-          <div class="detail-meta">
-            <span class="meta-item"
-              ><svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              {{ article.author }}</span
-            >
-            <span class="meta-item"
-              ><svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-              {{ article.time }}</span
-            >
-          </div>
+          <div class="detail-meta"></div>
         </div>
 
         <div class="detail-content" v-html="article.content"></div>
@@ -181,14 +155,42 @@ const goBack = () => {
   color: var(--text-main);
 }
 
-.detail-content :deep(h1) {
-  font-size: 24px;
+.detail-content :deep(h1),
+.detail-content :deep(h2) {
+  font-size: 22px;
+  margin-top: 24px;
   margin-bottom: 16px;
   color: var(--primary);
+  font-weight: 700;
 }
 
 .detail-content :deep(p) {
   margin-bottom: 16px;
+  color: var(--text-main);
+}
+
+.detail-content :deep(ul) {
+  margin-bottom: 16px;
+  padding-left: 20px;
+}
+
+.detail-content :deep(li) {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.detail-content :deep(strong) {
+  font-weight: 600;
+  color: #111;
+}
+
+.detail-content :deep(code) {
+  background: var(--bg-dark);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 14px;
+  color: #d32f2f;
 }
 
 .empty-state {
