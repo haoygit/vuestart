@@ -1,27 +1,14 @@
 <script setup lang="ts">
-const projects = [
-  {
-    id: 1,
-    tag: 'SYSTEM_SPEC',
-    title: '智慧能源可视化调度系统',
-    desc: '基于 AntV X6 引擎构建的拓扑逻辑控制台。解决了超大规模节点下的实时渲染性能瓶颈，支持自动化逻辑校验与方案导出。',
-    tech: ['Vue 3.x', 'AntV X6', 'TypeScript'],
-  },
-  {
-    id: 2,
-    tag: 'PWA_ARCHITECTURE',
-    title: '高性能企业级电商解决方案',
-    desc: '完成了从传统 Web 向 PWA 架构的演进。集成了复杂的离线缓存策略与骨架屏优化方案，大幅提升了弱网环境下的首屏加载速度。',
-    tech: ['PWA', 'Service Workers', 'Vite'],
-  },
-  {
-    id: 3,
-    tag: 'CORE_EDITOR',
-    title: '分布式协作编辑器组件库',
-    desc: '设计了一套多端同步的内容协同协议。支持实时版本冲突仲裁与变更轨迹追踪，广泛应用于内部文档协作平台。',
-    tech: ['WebSocket', 'PostgreSQL', 'Quill'],
-  },
-];
+import { useRouter } from 'vue-router';
+import { projects } from '@/data/projects';
+
+const router = useRouter();
+
+const goToArticle = (articleId?: number) => {
+  if (articleId) {
+    router.push(`/article/${articleId}`);
+  }
+};
 </script>
 
 <template>
@@ -33,9 +20,18 @@ const projects = [
     </header>
 
     <div class="projects-list">
-      <div v-for="p in projects" :key="p.id" class="card project-item">
+      <div
+        v-for="p in projects"
+        :key="p.id"
+        class="card project-item"
+        :class="{ clickable: p.articleId }"
+        @click="goToArticle(p.articleId)"
+      >
         <div class="item-id">[{{ p.tag }}]</div>
-        <h3>{{ p.title }}</h3>
+        <div class="item-header">
+          <h3>{{ p.title }}</h3>
+          <span v-if="p.articleId" class="view-doc-hint">查看技术文档 →</span>
+        </div>
         <p class="description">{{ p.desc }}</p>
         <div class="tech-row">
           <span v-for="t in p.tech" :key="t" class="tech-tag">{{ t }}</span>
@@ -80,6 +76,35 @@ const projects = [
 .project-item {
   border-left: 4px solid var(--primary); /* 侧边蓝色强调条 */
   padding: 32px;
+}
+
+.project-item.clickable {
+  cursor: pointer;
+}
+
+.project-item.clickable:hover h3 {
+  color: var(--primary);
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.view-doc-hint {
+  font-size: 13px;
+  color: var(--primary);
+  font-weight: 700;
+  opacity: 0;
+  transition: all 0.2s ease;
+  transform: translateX(-10px);
+}
+
+.project-item:hover .view-doc-hint {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .item-id {

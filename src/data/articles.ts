@@ -8,6 +8,7 @@ export interface Article {
   author: string;
   time: string;
   content: string;
+  implementationPlan?: string;
 }
 
 export const articles: Article[] = [
@@ -715,6 +716,100 @@ export const articles: Article[] = [
       </ul>
       <h2>总结</h2>
       <p>App Router 是 React 走向全栈的里程碑。它要求开发者在“服务端代码”和“客户端交互”之间划清界限，从而构建出兼具动态交互与变态级性能的下一代 Web 应用。</p>
+    `,
+  },
+  // Projects
+  {
+    id: 701,
+    category: 'vue',
+    image: '/projects/smart_energy.png',
+    title: '智慧能源可视化调度系统：架构设计与实现',
+    desc: '深度解析基于 AntV X6 与 Vue 3 构建的大规模能源拓扑调度系统的核心技术点。',
+    tag: '系统架构',
+    author: '架构师',
+    time: '刚刚',
+    content: `
+      <h2>项目背景</h2>
+      <p>在智慧能源管理领域，如何直观、高效地展示和调度复杂的能源拓扑网络是一个巨大的挑战。本项目旨在构建一个能够支撑数万个节点实时交互的可视化调度控制台。</p>
+      <h2>核心技术实现</h2>
+      <ul>
+        <li><strong>AntV X6 图引擎定制：</strong> 深度定制 X6 的节点渲染逻辑，利用 HTML 节点配合 Vue 3 的局部更新特性，实现了复杂业务 UI 的高性能渲染。</li>
+        <li><strong>大规模节点性能优化：</strong> 引入了图形分层渲染与“视口外剔除”策略。在处理超大规模拓扑图时，仅对当前视口内的元素进行重绘，将交互延迟降低了 80%。</li>
+        <li><strong>自动化逻辑校验：</strong> 基于 DAG (有向无环图) 算法实现实时的拓扑逻辑校验，防止调度方案中出现环路或非法连接。</li>
+        <li><strong>数据驱动的状态同步：</strong> 结合 Pinia 实现图形状态与业务数据的双向绑定，确保每一处点击都能实时反映在调度模型中。</li>
+      </ul>
+      <h2>总结与展望</h2>
+      <p>通过本次实践，我们证明了 Web 技术在处理高复杂、高交互的工业级场景中依然具备极强的竞争力。未来我们将探索 WebGPU 在拓扑布局计算中的应用。</p>
+    `,
+    implementationPlan: `
+      <h3>第一阶段：基础架构搭建 (1-2周)</h3>
+      <p>建立基于 Vite + Vue 3 的工程化底座，集成 AntV X6 核心库，并完成自定义节点 (Custom Node) 的基类开发。</p>
+      <h3>第二阶段：核心功能开发 (3-5周)</h3>
+      <p>实现 DAG 拓扑解析引擎，开发拖拽式建模交互逻辑。引入 Canvas 层叠渲染机制处理高频动画反馈。</p>
+      <h3>第三阶段：性能调优与稳定化 (6-8周)</h3>
+      <p>针对万级节点进行内存泄露排查与渲染管线优化。集成 Pinia 实现撤销重做 (Undo/Redo) 功能，并完成方案导出模块。</p>
+    `,
+  },
+  {
+    id: 702,
+    category: 'html5',
+    image: '/projects/ecommerce.png',
+    title: '高性能企业级电商 PWA 演进之路',
+    desc: '从传统单页应用到 PWA 架构，揭秘如何通过 Service Worker 打造极致的购物体验。',
+    tag: 'PWA实践',
+    author: '全栈专家',
+    time: '刚刚',
+    content: `
+      <h2>引言</h2>
+      <p>电商应用对加载速度和稳定性极度敏感。PWA (Progressive Web App) 为我们提供了在弱网甚至离线环境下保持应用可用的终极方案。</p>
+      <h2>核心优化策略</h2>
+      <ul>
+        <li><strong>骨架屏预加载 (App Shell)：</strong> 将应用的核心 UI 框架缓存为 App Shell，确保用户在点击图标后瞬间看到基本结构，消除白屏焦虑。</li>
+        <li><strong>离线缓存策略：</strong> 针对首页和商品详情页采用 "Stale-While-Revalidate" 策略，既保证了极速加载，又能在后台静默更新商品价格和库存信息。</li>
+        <li><strong>后台同步与推送：</strong> 利用 Background Sync 确保用户在电梯或地铁等断网环境下下单后，恢复网络时订单能自动提交，大幅提升转化率。</li>
+        <li><strong>安装与沉浸式体验：</strong> 通过 Web App Manifest 配置，引导用户将应用添加到桌面，实现无地址栏的全屏沉浸式购物。</li>
+      </ul>
+      <h2>实施成果</h2>
+      <p>在完成 PWA 改造后，我们的首屏加载时间缩短了 45%，在印度等弱网市场的活跃度提升了 30% 以上。</p>
+    `,
+    implementationPlan: `
+      <h3>第一阶段：环境准备与 Manifest 配置 (1周)</h3>
+      <p>配置 Web App Manifest 文件，设定启动画面、图标及主题色。在 Vite 配置中集成 \`vite-plugin-pwa\`。</p>
+      <h3>第二阶段：Service Worker 策略设计 (2-3周)</h3>
+      <p>根据资源类型划分缓存级别。图片使用 CacheFirst，API 接口使用 Stale-While-Revalidate，App Shell 使用 NetworkFirst 以确保即时更新。</p>
+      <h3>第三阶段：离线交互与通知推送 (4周)</h3>
+      <p>实现离线状态下的 UI 友好提示，开发 Background Sync 任务队列处理断网订单，并集成 Web Push API 进行精准营销。</p>
+    `,
+  },
+  {
+    id: 703,
+    category: 'javascript',
+    image: '/projects/editor.png',
+    title: '分布式协作编辑器：协同算法与冲突处理',
+    desc: '深入探讨基于 WebSocket 与多端同步协议构建的实时协作编辑器的底层原理。',
+    tag: '分布式协作',
+    author: '算法工程师',
+    time: '刚刚',
+    content: `
+      <h2>项目初衷</h2>
+      <p>在文档协作日益频繁的今天，构建一个像 Google Docs 一样流畅的多人实时协作编辑器是许多企业的核心需求。本项目专注于解决多端并发冲突与数据一致性问题。</p>
+      <h2>关键技术突破</h2>
+      <ul>
+        <li><strong>实时通讯链路：</strong> 基于 Socket.io 构建双向全双工通讯，实现了毫秒级的变更广播。</li>
+        <li><strong>冲突仲裁机制：</strong> 弃用了复杂的 OT 算法，采用更为现代且易于扩展的 CRDT (无冲突复制数据类型) 方案，确保在任何网络分区恢复后，所有端都能达成最终一致性。</li>
+        <li><strong>版本轨迹追踪：</strong> 实现了一套高效的快照与增量存储方案，用户可以随时通过时光机功能回滚到任何一个历史编辑版本。</li>
+        <li><strong>富文本编辑器集成：</strong> 深度集成了 Quill 编辑器，并将其底层 Delta 模型与分布式协议完美适配。</li>
+      </ul>
+      <h2>总结</h2>
+      <p>分布式系统的复杂性在实时协作中体现得淋漓尽致。CRDT 的引入让状态管理变得更加直观且强健，为未来的多端协同奠定了坚实的基础。</p>
+    `,
+    implementationPlan: `
+      <h3>第一阶段：协议选型与原型验证 (2周)</h3>
+      <p>对比 Yjs 和 Automerge 性能，选择 Yjs 作为底层的 CRDT 库。搭建 Node.js WebSocket 服务端原型。</p>
+      <h3>第二阶段：编辑器深度集成 (3-4周)</h3>
+      <p>将 Quill 的 Delta 数据模型转换为 Yjs 的共享类型。实现多端光标同步与在线用户状态感知。</p>
+      <h3>第三阶段：容错性与持久化增强 (5-6周)</h3>
+      <p>开发离线编辑本地缓存逻辑，实现网络重连后的自动同步。在后端集成 PostgreSQL 存储文档快照与增量日志。</p>
     `,
   },
 ];

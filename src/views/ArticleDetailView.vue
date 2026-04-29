@@ -52,6 +52,13 @@ const goBack = () => {
         </div>
 
         <div class="detail-content" v-html="article.content"></div>
+
+        <div v-if="article.implementationPlan" class="implementation-section">
+          <div class="section-divider">
+            <span class="divider-text">具体实现方案</span>
+          </div>
+          <div class="implementation-content" v-html="article.implementationPlan"></div>
+        </div>
       </div>
 
       <div v-else class="card article-detail empty-state">
@@ -191,6 +198,73 @@ const goBack = () => {
   font-family: monospace;
   font-size: 14px;
   color: #d32f2f;
+}
+
+.implementation-section {
+  padding: 0 32px 48px;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  margin: 40px 0 32px;
+}
+
+.divider-text {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 8px 24px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.divider-text::after {
+  content: '';
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(to right, var(--primary), transparent);
+}
+
+.implementation-content {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid #e2e8f0;
+}
+
+.implementation-content :deep(h3) {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-top: 0;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.implementation-content :deep(h3)::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+
+.implementation-content :deep(p) {
+  margin-bottom: 24px;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.implementation-content :deep(p):last-child {
+  margin-bottom: 0;
 }
 
 .empty-state {

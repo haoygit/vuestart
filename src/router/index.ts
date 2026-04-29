@@ -6,7 +6,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      redirect: '/html5',
+      component: () => import('../views/HomeView.vue'),
     },
     {
       path: '/html5',

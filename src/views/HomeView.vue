@@ -1,32 +1,23 @@
 <script setup lang="ts">
-const articles = [
-  {
-    id: 1,
-    image:
-      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400&auto=format&fit=crop',
-    title: '创新结合当前的科技公司园区地理结构技术公司',
-    desc: 'Documentation is deeply integrated into the modern workspace infrastructure, providing a stable backbone for...',
-    tag: '前端前沿',
-    author: '架构师',
-    time: '2天前',
-  },
-  {
-    id: 2,
-    image:
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=400&auto=format&fit=crop',
-    title: '按硬件设备划分公司层发现的技术型文章将...',
-    desc: 'It essentially enables building robust virtual platforms and helps developers keep track of operations efficiently...',
-    tag: '系统架构',
-    author: '前端大牛',
-    time: '3天前',
-  },
-];
+import { useRouter } from 'vue-router';
+import { homeArticles as articles } from '@/data/home';
+
+const router = useRouter();
+
+const goToDetail = (id: number) => {
+  router.push(`/article/${id}`);
+};
 </script>
 
 <template>
   <div class="home-container fade-in">
     <div class="articles-col">
-      <div v-for="article in articles" :key="article.id" class="article-card card">
+      <div
+        v-for="article in articles"
+        :key="article.id"
+        class="article-card card clickable"
+        @click="goToDetail(article.id)"
+      >
         <div class="article-image">
           <img
             :src="article.image"

@@ -1,29 +1,5 @@
 <script setup lang="ts">
-const posts = [
-  {
-    id: 1,
-    ref: 'DOC_001',
-    date: '2024.03.20',
-    title: '复杂业务场景下的 Vue 组合式函数抽象',
-    excerpt:
-      '研究如何通过 Composition API 构建高内聚、低耦合的业务逻辑单元，并实现组件间的逻辑复用效率最大化。',
-  },
-  {
-    id: 2,
-    ref: 'DOC_002',
-    date: '2024.03.15',
-    title: '前端工程化：自动化环境与质量守卫',
-    excerpt:
-      '详解如何配置基于 Vite 的持续集成管线，通过静态扫描与单元测试保障大型项目的交付稳定性。',
-  },
-  {
-    id: 3,
-    ref: 'DOC_003',
-    date: '2024.03.01',
-    title: '从零开始：构建稳定可靠的 PWA 离线体系',
-    excerpt: '从 Service Worker 声明周期到 Cache Storage 策略，深度解析渐进式 Web 应用的核心实现。',
-  },
-];
+import { blogPosts as posts } from '@/data/blog';
 </script>
 
 <template>
