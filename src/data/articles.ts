@@ -743,11 +743,28 @@ export const articles: Article[] = [
     `,
     implementationPlan: `
       <h3>第一阶段：基础架构搭建 (1-2周)</h3>
-      <p>建立基于 Vite + Vue 3 的工程化底座，集成 AntV X6 核心库，并完成自定义节点 (Custom Node) 的基类开发。</p>
+      <p>建立基于 Vite + Vue 3 的工程化底座，集成 AntV X6 核心库。核心代码如下，展示如何初始化画布并配置全局插件：</p>
+      <pre><code>import { Graph } from '@antv/x6';
+const graph = new Graph({
+  container: document.getElementById('container'),
+  grid: true,
+  mousewheel: { enabled: true, zoomAtMouseWheel: true },
+  scroller: { enabled: true, pageVisible: false, pannable: true },
+});</code></pre>
       <h3>第二阶段：核心功能开发 (3-5周)</h3>
-      <p>实现 DAG 拓扑解析引擎，开发拖拽式建模交互逻辑。引入 Canvas 层叠渲染机制处理高频动画反馈。</p>
+      <p>实现自定义节点 (Custom Node) 的基类开发。通过 Vue 3 的渲染函数将业务 UI 挂载到 X6 节点中：</p>
+      <pre><code>Graph.registerNode('energy-node', {
+  inherit: 'vue-shape',
+  component: EnergyNodeComponent, // 引入 Vue 组件
+  width: 180,
+  height: 60,
+});</code></pre>
       <h3>第三阶段：性能调优与稳定化 (6-8周)</h3>
-      <p>针对万级节点进行内存泄露排查与渲染管线优化。集成 Pinia 实现撤销重做 (Undo/Redo) 功能，并完成方案导出模块。</p>
+      <p>针对万级节点进行内存泄露排查，利用 X6 的异步渲染模式提升性能：</p>
+      <pre><code>graph.setOptions({
+  async: true, // 开启异步渲染
+  frozen: true, // 渲染过程中锁定画布
+});</code></pre>
     `,
   },
   {
@@ -774,11 +791,32 @@ export const articles: Article[] = [
     `,
     implementationPlan: `
       <h3>第一阶段：环境准备与 Manifest 配置 (1周)</h3>
-      <p>配置 Web App Manifest 文件，设定启动画面、图标及主题色。在 Vite 配置中集成 \`vite-plugin-pwa\`。</p>
+      <p>配置 Web App Manifest 文件。在 Vite 配置中集成 \`vite-plugin-pwa\`，实现资源预缓存：</p>
+      <pre><code>VitePWA({
+  registerType: 'autoUpdate',
+  manifest: {
+    name: 'Pro E-commerce',
+    short_name: 'PEC',
+    theme_color: '#165dff',
+    icons: [{ src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' }]
+  }
+})</code></pre>
       <h3>第二阶段：Service Worker 策略设计 (2-3周)</h3>
-      <p>根据资源类型划分缓存级别。图片使用 CacheFirst，API 接口使用 Stale-While-Revalidate，App Shell 使用 NetworkFirst 以确保即时更新。</p>
+      <p>使用 Workbox 的策略进行精细化缓存管理：</p>
+      <pre><code>workbox: {
+  runtimeCaching: [{
+    urlPattern: /^https:api.example.com.*,
+    handler: 'StaleWhileRevalidate',
+    options: { cacheName: 'api-cache', expiration: { maxEntries: 100 } }
+  }]
+}</code></pre>
       <h3>第三阶段：离线交互与通知推送 (4周)</h3>
-      <p>实现离线状态下的 UI 友好提示，开发 Background Sync 任务队列处理断网订单，并集成 Web Push API 进行精准营销。</p>
+      <p>实现 Background Sync 任务队列，确保订单在断网重连后自动重发：</p>
+      <pre><code>self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-orders') {
+    event.waitUntil(sendPendingOrders());
+  }
+});</code></pre>
     `,
   },
   {
@@ -805,11 +843,20 @@ export const articles: Article[] = [
     `,
     implementationPlan: `
       <h3>第一阶段：协议选型与原型验证 (2周)</h3>
-      <p>对比 Yjs 和 Automerge 性能，选择 Yjs 作为底层的 CRDT 库。搭建 Node.js WebSocket 服务端原型。</p>
+      <p>初始化 Yjs 共享文档并配置 WebSocket 提供者，实现多端数据同步：</p>
+      <pre><code>import * as Y from 'yjs';
+import { WebsocketProvider } from 'y-websocket';
+const ydoc = new Y.Doc();
+const provider = new WebsocketProvider('ws://localhost:1234', 'room', ydoc);</code></pre>
       <h3>第二阶段：编辑器深度集成 (3-4周)</h3>
-      <p>将 Quill 的 Delta 数据模型转换为 Yjs 的共享类型。实现多端光标同步与在线用户状态感知。</p>
+      <p>将 Quill 的 Delta 数据模型绑定到 Yjs 的 Text 类型中：</p>
+      <pre><code>import { QuillBinding } from 'y-quill';
+const ytext = ydoc.getText('quill');
+const binding = new QuillBinding(ytext, quill, provider.awareness);</code></pre>
       <h3>第三阶段：容错性与持久化增强 (5-6周)</h3>
-      <p>开发离线编辑本地缓存逻辑，实现网络重连后的自动同步。在后端集成 PostgreSQL 存储文档快照与增量日志。</p>
+      <p>后端使用 IndexedDB 级别的数据持久化方案，确保在断开连接时数据不丢失：</p>
+      <pre><code>import { IndexeddbPersistence } from 'y-indexeddb';
+const persistence = new IndexeddbPersistence('room', ydoc);</code></pre>
     `,
   },
 ];

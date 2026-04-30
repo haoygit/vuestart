@@ -267,6 +267,23 @@ const goBack = () => {
   margin-bottom: 0;
 }
 
+.implementation-content :deep(pre) {
+  background: #1e293b;
+  color: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 16px 0 24px;
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.implementation-content :deep(code) {
+  font-family: inherit;
+  color: inherit;
+}
+
 .empty-state {
   padding: 64px;
   text-align: center;
